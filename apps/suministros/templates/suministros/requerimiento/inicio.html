@@ -1,0 +1,18 @@
+{% extends "Base.html" %}
+{% load static %}
+{% load table_tags %}
+
+{% block titulo %}
+    - Requerimiento
+{% endblock %}
+
+{% block page_name %}ADMINISTRACION DE REQUERIMIENTOS{% endblock %}
+
+{% block content %}
+<a href="http://127.0.0.1:8000/suministros/requerimiento/agregar/" type="button">Agregar</a>
+    {% render_table tablaRequerimiento %}
+    <script type="text/javascript">
+        $tablaView = $("#requerimientoTabla");
+    </script>
+{% endblock %}
+

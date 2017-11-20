@@ -1,0 +1,20 @@
+{% extends "BaseForm.html" %}
+{% block modal_title %}
+    {{ titulo_ventana }}
+{% endblock %}
+{% block form_body %}
+    <form id="formModeloCompatible" method='POST' class="form" role="form" action="{{ request.path }}">
+        {% csrf_token %}
+        {% if delete_error != None %}
+            <div class="text-danger form-group">
+                Error!!: {{ delete_error|escape }}
+            </div>
+        {% endif %}
+        Nombre: {{ object.modelo.nombre }}<br/>
+        Es Principal: {{ object.principal|yesno:"SI,NO"}}<br/>
+    </form>
+    <script type="text/javascript">
+        $formView = $('#formModeloCompatible');
+        $("#btnGuardar").text("Eliminar");
+    </script>
+{% endblock form_body %}

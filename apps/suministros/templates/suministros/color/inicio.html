@@ -1,0 +1,16 @@
+{% extends "Base.html" %}
+{% load static %}
+{% load table_tags %}
+
+{% block titulo %}
+    - Colores
+{% endblock %}
+
+{% block page_name %}ADMINISTRACION DE COLORES{% endblock %}
+
+{% block content %}
+    {% render_table tablaColor %}
+    <script type="text/javascript">
+        $tablaView = $("#colorTabla");
+    </script>
+{% endblock %}

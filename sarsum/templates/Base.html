@@ -1,0 +1,121 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    {% block title_outer %}
+        <title>
+            {% block title %}
+                Sistema de Suministros
+                {% block titulo %}
+                {% endblock %}
+            {% endblock %}
+        </title>
+    {% endblock %}
+    {% block meta %}
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-COMPATIBLE" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    {% endblock %}
+    {% block stylesheets %}
+        {% include 'adminlte/lib/_styles.html' %}
+    {% endblock %}
+    {% block javascript %}
+        {% include 'adminlte/lib/_scripts.html' %}
+        <link href="{% static 'table/css/datatable.bootstrap.css' %}" rel="stylesheet">
+        <link href="{% static 'plugins/waitme/waitme.min.css' %}" rel="stylesheet">
+        <link href="{% static 'plugins/toast/toastr.min.css' %}" rel="stylesheet">
+        <link href="{% static 'plugins/select2/select2.min.css' %}" rel="stylesheet">
+        <link href="{% static 'plugins/touchspin/jquery.bootstrap-touchspin.min.css' %}" rel="stylesheet">
+        <link href="{% static 'plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css' %}" rel="stylesheet">
+        <link href="{% static 'plugins/toogle/bootstrap-toggle.min.css' %}" rel="stylesheet">
+        <link href="{% static 'css/datetimepicker.css' %}" rel="stylesheet">
+        <link href="{% static 'icheck/skins/all.css' %}" rel="stylesheet">
+        <script src="{% static 'table/js/jquery.browser.min.js' %}"></script>
+        <script src="{% static 'table/js/jquery.dataTables.min.js' %}"></script>
+        <script src="{% static 'jquery.form.js' %}"></script>
+        <script src="{% static 'plugins/waitme/waitme.min.js' %}"></script>
+        <script src="{% static 'plugins/toast/toastr.min.js' %}"></script>
+        <script src="{% static 'plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js' %}"></script>
+        <script src="{% static 'plugins/toogle/bootstrap-toggle.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap-datetimepicker.js' %}"></script>
+        <script src="{% static 'js/locales/bootstrap-datetimepicker.es.js' %}"></script>
+        <script src="{% static 'icheck/icheck.min.js' %}"></script>
+    {% endblock %}
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="hold-transition skin-green sidebar-mini {% block body_class %}{% block bodyclass %}{% endblock %}{% endblock %}">
+{% block body %}
+    <div class="wrapper">
+        {% block nav_header %}
+            {% include '_Main_Header.html' %}
+        {% endblock %}
+        {% block nav_sidebar %}
+            {% include '_SideBar.html' %}
+        {% endblock %}
+
+        {% block content_wrapper %}
+        <div class="content-wrapper">
+            {% block content_header %}
+                <section class="content-header">
+                    <h1>
+                        {% block page_name %}{% endblock %}
+                        {% block no_description %}
+                        <small>{% block page_description %}{% endblock %}</small>
+                        {% endblock %}
+                    </h1>
+                    {% block breadcrumbs %}
+                        {# Breadcrumb implementation left to developers #}
+                    {% endblock %}
+                </section>
+            {% endblock %}
+
+            {% block content_outer %}
+            <section class="content">
+                {% block messages %}
+                    {% include 'adminlte/lib/_messages.html' %}
+                {% endblock %}
+
+                {# Ventanas Modales #}
+                    <div id="modalMaster" class="modal fade" data-keyboard="true" data-backdrop="true" role="dialog">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                        </div>
+                      </div>
+                    </div>
+                    <script type="text/javascript">
+                        $masterModal = $("#modalMaster");
+                        $masterModal.on('show.bs.modal', function(e) {
+                            $("body").waitMe({text:"Cargando..."});
+                        }).on('shown.bs.modal', function(e) {
+                            $("body").waitMe("hide");
+                        }).on('hidden.bs.modal', function(e) {
+                            $(this).find(".modal-body").html("");
+                        });
+                        $('body').on('hidden.bs.modal', '.modal', function () {
+                          $(this).removeData('bs.modal');
+                        });
+                    </script>
+                {# ================================== #}
+                {% block content_block_wrap %}
+                    {% block content %}{% endblock %}
+                {% endblock %}
+            </section>
+            {% endblock %}
+
+        </div>
+        {% endblock content_wrapper %}
+
+        {% block nav_footer %}
+            {% include 'adminlte/lib/_main_footer.html' %}
+        {% endblock %}
+
+    </div>
+{% endblock body %}
+<script src="{% static 'plugins/select2/select2.full.min.js' %}"></script>
+<script src="{% static 'plugins/select2/django_select2.js' %}"></script>
+<script src="{% static 'plugins/select2/i18n/es.js' %}"></script>
+<script src="{% static 'plugins/touchspin/jquery.bootstrap-touchspin.min.js' %}"></script>
+<script src="{% static 'funciones.js' %}"></script>
+{% block extra_foot %}{% endblock %}
+</body>
+</html>

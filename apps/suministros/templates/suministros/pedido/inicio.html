@@ -1,0 +1,16 @@
+{% extends "Base.html" %}
+{% load static %}
+{% load table_tags %}
+
+{% block titulo %}
+    - Pedido
+{% endblock %}
+
+{% block page_name %}ADMINISTRACION DE PEDIDOS{% endblock %}
+
+{% block content %}
+    {% render_table tablaPedido %}
+    <script type="text/javascript">
+        $tablaView = $("#pedidoTabla");
+    </script>
+{% endblock %}

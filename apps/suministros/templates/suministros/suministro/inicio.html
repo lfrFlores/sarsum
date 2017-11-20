@@ -1,0 +1,17 @@
+{% extends "Base.html" %}
+{% load static %}
+{% load table_tags %}
+
+{% block titulo %}
+    - Suministro
+{% endblock %}
+
+{% block page_name %}ADMINISTRACION DE SUMINISTROS{% endblock %}
+
+
+{% block content %}
+    {% render_table tablaSuministro %}
+    <script type="text/javascript">
+        $tablaView = $("#suministroTabla");
+    </script>
+{% endblock %}

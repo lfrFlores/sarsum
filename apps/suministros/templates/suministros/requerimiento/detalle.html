@@ -1,0 +1,16 @@
+{% load static %}
+<script src="{% static 'plugins/select2/django_select2.js' %}"></script>
+<td class="col-xs-2">
+    {{ formDetalle.cantidad }}
+</td>
+<td class="col-xs-9">
+    {{ formDetalle.suministro }}
+</td>
+<td class="col-xs-1">
+    {{ formDetalle.DELETE }}
+</td>
+<script type="text/javascript">
+    $("#id_cantidad_{{ formNumero }}").prop("type", "text").TouchSpin({
+        verticalbuttons: true
+    });
+</script>

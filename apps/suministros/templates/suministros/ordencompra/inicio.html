@@ -1,0 +1,56 @@
+{% extends "Base.html" %}
+{% load static %}
+{% load table_tags %}
+
+{% block titulo %}
+    - Orden de Compra
+{% endblock %}
+
+{% block page_name %}ADMINISTRACION DE ORDENES DE COMPRA{% endblock %}
+
+{% block content %}
+    {% render_table tablaOrdenCompra %}
+    <script type="text/javascript">
+        $tablaView = $("#ordencompraTabla");
+    </script>
+
+    <div id="dataOrdenCompraDetalle">
+    </div>
+{% endblock %}
+
+{% block extra_foot %}
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            /*$("#ordencompraTabla").ajaxForm({target: "#dataOrdenCompraDetalle"})
+            $("#btnDetalle").on("change", function(e) {
+                $("#ordencompraTabla").submit();
+            });
+            */
+            $('#ordencompraTabla').on('click', 'tr.selected', function(event) {
+              if($(this).hasClass('active')){
+                $(this).removeClass('active');
+                $.ajax({
+                    url: "{% url 'suministros:ordencompradetalle_tabla' %}",
+                    success: function (data) {
+                        $('#dataOrdenCompraDetalle').html(data);
+                    }
+                });
+              } else {
+                $(this).addClass('active').siblings().removeClass('active');
+              }
+            });
+
+            $('#btnDetalle').click(function ()
+            {
+                $.ajax({
+                    url: "{% url 'suministros:ordencompradetalle_tabla' %}",
+                    success: function (data) {
+                        $('#dataOrdenCompraDetalle').html(data);
+                    }
+                });
+            });
+
+        });
+    </script>
+{% endblock %}

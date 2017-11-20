@@ -1,0 +1,45 @@
+{% extends "Base.html" %}
+{% load static %}
+{% load table_tags %}
+
+{% block titulo %}
+    - Requerimiento
+{% endblock %}
+
+{% block page_name %}REQUERIMIENTO DE SUMINISTROS{% endblock %}
+{% block content %}
+    <form id="formReq" method="get">
+        {% csrf_token %}
+        <div class="content container">
+            <div class="row">
+                    <div class="col-md-4">
+                        <label >Fecha: </label>
+                        {{ formReq.fecha }}
+                    </div>
+                  </div>
+              <div class="row">
+                     <div class="col-md-6">
+                         <label> Dependencia: </label>
+                        {{ formReq.dependencia }}
+                    </div>
+                     <div class="col-md-5">
+                         <label> Unidad Orgánica: </label>
+                        {{ formReq.unidadorganica }}
+                    </div>
+                </div>
+        </div>
+    </form>
+    <div id="dataRequerimiento">
+
+    </div>
+{% endblock %}
+{% block extra_foot %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#formReq").ajaxForm({target: "#dataRequerimiento"})
+            $("#cbuO").on("change", function(e) {
+                $("#formReq").prop("action", "{% url 'suministros:requerimiento_tabla' 0 %}".replace("/0", "/" + $(this).val())).submit();
+            });
+        });
+    </script>
+{% endblock %}

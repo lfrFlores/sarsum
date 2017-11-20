@@ -1,0 +1,27 @@
+{% extends "Base.html" %}
+{% load static %}
+{% load table_tags %}
+
+{% block titulo %}
+    - Suministro
+{% endblock %}
+
+{% block page_name %}COMPATIBILIDAD DE SUMINISTROS{% endblock %}
+{% block content %}
+    <form id="formSum" method="get" action="{% url 'suministros:modelocompatible_tabla' %}">
+        {% csrf_token %}
+        {{ formSum }}
+    </form>
+    <div id="dataCompatibilidad">
+    </div>
+{% endblock %}
+{% block extra_foot %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#formSum").ajaxForm({target: "#dataCompatibilidad"})
+            $("#cbSum").on("change", function(e) {
+                $("#formSum").submit();
+            });
+        });
+    </script>
+{% endblock %}

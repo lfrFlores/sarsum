@@ -1,0 +1,71 @@
+{#{% if not request.user.is_authenticated %}#}
+{#    <script type="text/javascript">#}
+{#        document.location.reload();#}
+{#    </script>#}
+{#{% else %}#}
+    {% load static from staticfiles %}
+    <script src="{% static 'plugins/select2/django_select2.js' %}"></script>
+
+    <script src="{% static 'plugins/djangoformset/js/jquery.formset.js' %}"></script>
+    <script type="text/javascript">
+        $tableView = null;
+        $guardar = true;
+    </script>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">
+            {% block modal_title %}
+            {% endblock %}
+        </h4>
+    </div>
+    <div class="modal-body">
+        {% block form_body %}
+        {% endblock form_body %}
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button id="btnGuardar" type="button" class="btn btn-primary">Guardar</button>
+    </div>
+    <script type="text/javascript">
+        if ($formView) {
+            $(".input-group.date").datetimepicker().on('show.bs.modal', function(event) {
+                event.stopPropagation();
+            });
+            $("#btnGuardar").on("click", function() {
+                if ($guardar) {
+                    $("#modalMaster .modal-content").waitMe({text: "Procesando... Un momento por favor!!!"});
+                    $formView.submit();
+                }
+            });
+            $formView.find("[type='checkbox'].form-control").removeClass("form-control").bootstrapToggle({});
+            $formView.find("[type='number'].touch-spin").prop("type", "text").TouchSpin({
+                verticalbuttons: true
+            });
+            $formView.find("[type='text'].select-color").colorpicker({});
+
+            var form_options = {
+                target: $("#modalMaster .modal-content"),
+                success: function (res, status, xhr, form) {
+                    if (res.value) {
+                        toastr["success"](res.msg);
+                        $("#modalMaster .modal-content").waitMe('hide');
+                        $("#modalMaster").modal('hide');
+                        if ($tablaView) {
+                            $tablaView.DataTable().ajax.reload(null, false);
+                        }
+                    }
+                }
+            };
+            $formView.ajaxForm(form_options);
+        }
+    </script>
+    <style type="text/css">
+        .form-group>label{
+            vertical-align: middle;
+            line-height: 2.9em;
+        }
+        textarea {
+            resize: none;
+        }
+    </style>
+{#{% endif %}#}

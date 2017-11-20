@@ -1,0 +1,18 @@
+{% extends "BaseForm.html" %}
+
+{% block modal_title %}
+    {{ titulo_ventana }}
+{% endblock %}
+{% block form_body %}
+    <form id="formRequerimiento" method='POST' class="form" role="form" action="{{ request.path }}">
+        {% csrf_token %}
+        {{ form }}
+    </form>
+    <script type="text/javascript">
+        $formView = $('#formRequerimiento');
+//        $formView.find("[type='checkbox']").iCheck({checkboxClass: 'icheckbox_minimal-green', radioClass: 'iradio_minimal-green'});
+       $( document ).ready(function() {
+            setTimeout(function() { $("#id_nombre").focus() }, 200);
+        });
+    </script>
+{% endblock form_body %}

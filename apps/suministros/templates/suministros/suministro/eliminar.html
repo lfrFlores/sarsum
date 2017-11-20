@@ -1,0 +1,21 @@
+{% extends "BaseForm.html" %}
+{% block modal_title %}
+    {{ titulo_ventana }}
+{% endblock %}
+{% block form_body %}
+    <form id="formColor" method='POST' class="form" role="form" action="{{ request.path }}">
+        {% csrf_token %}
+        {% if delete_error != None %}
+            <div class="text-danger form-group">
+                Error!!: {{ delete_error|escape }}
+            </div>
+        {% endif %}
+        Tipo: {{ object.Tipo }}<br/>
+        Código: {{ object.codigo }}<br/>
+        Modelo: {{ object.modelo }}<br/>
+    </form>
+    <script type="text/javascript">
+        $formView = $('#formColor');
+        $("#btnGuardar").text("Eliminar");
+    </script>
+{% endblock form_body %}

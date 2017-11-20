@@ -1,0 +1,8 @@
+Generar Requeriments:
+
+    pip freeze > requirements.txt
+
+Instalar Requeriments:
+
+    pip install -r requirements.txt
+
